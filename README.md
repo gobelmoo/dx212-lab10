@@ -43,6 +43,16 @@ npx expo start        # กด w = เว็บ · a = Android Emulator · ส�
 > ใส่ได้เฉพาะ **publishable key** — ห้ามใช้ secret key (`sb_secret_...`) ในแอปเด็ดขาด
 > `.env.local` ถูก `.gitignore` กันไว้ ไม่ขึ้น GitHub · แก้ไฟล์นี้แล้วต้องหยุด `expo start` (Ctrl+C) แล้วรันใหม่
 
+## 3) เปิดเป็นเว็บบน Vercel (ไม่บังคับ)
+
+repo นี้ตั้งค่าไว้แล้ว: `app.json` ใช้ `"web": { "output": "single" }` และมี `vercel.json` (build ด้วย `npx expo export -p web` → โฟลเดอร์ `dist`, ส่งทุก path ไปหน้าแอป จึงเปิด `/menu/3` ตรง ๆ ได้)
+
+1. vercel.com → **Add New → Project** → Import repo นี้จาก GitHub (Framework Preset ปล่อยเป็น Other — ค่าอื่นอ่านจาก `vercel.json`)
+2. **Environment Variables** ใส่ 2 ตัวเหมือน `.env.local`: `EXPO_PUBLIC_SUPABASE_URL` และ `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (publishable key เท่านั้น)
+3. กด **Deploy** → ได้ลิงก์ `https://<ชื่อโปรเจกต์>.vercel.app` · หลังจากนี้ทุกครั้งที่ `git push` Vercel จะ build ใหม่ให้เอง
+
+> ค่า `EXPO_PUBLIC_` ถูกฝังตอน build → แก้ค่าใน Vercel แล้วต้องกด **Redeploy**
+
 ## โครงไฟล์ (ส่วนที่เปลี่ยนจาก lab9)
 
 ```
